@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "production": {
+    "scripts": {
+      "build": "npm i && npm run build",
+      "start": "pm2 reload ecosystem.config.js --env production --update-env"
+    },
+    "scriptOptions": {
+      "doNotDieOnPreStartFail": true
+    },
+    "domains": ["qtip.shub.club"]
+  }
+}

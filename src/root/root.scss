@@ -1,0 +1,180 @@
+$default-font-family: -apple-system, BlinkMacSystemFont, Helvetica, Tahoma, sans-serif;
+$font-color: #333;
+$heavy-font-weight: 600;
+$medium-font-weight: 500;
+$qtip-blue: #0064ff;
+
+$title-size: 24px;
+$subtitle-size: 16px;
+
+$font-xlarge: 24px;
+$font-large: 18px;
+$font-medium: 16px;
+$font-normal: 14px;
+$font-small: 12px;
+$page-margin: 50px;
+
+@mixin centerPage {
+  padding: 0 $page-margin;
+}
+
+a {
+  color: $qtip-blue;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+html, body {
+  margin: 0;
+  color: #333;
+  line-height: 1.15;
+  font-size: $font-normal;
+  font-family: $default-font-family;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  line-height: 1;
+  margin: 15px 0 0 0;
+  padding: 0;
+  font-weight: $heavy-font-weight;
+}
+
+header {
+  padding: $page-margin $page-margin 25px;
+}
+
+main {
+  :first-child {
+    margin-top: 0;
+  }
+
+  @include centerPage;
+}
+
+.children-nav {
+  @include centerPage;
+  margin-bottom: 25px;
+  font-size: $font-normal;
+  &__title {
+    cursor: pointer;
+    font-weight: $heavy-font-weight;
+
+    &--navigator {
+      &::before {
+        width: 12px;
+        display: inline-block;
+        content: '▶';
+      }
+    }
+  }
+
+
+  &__list {
+    display: none;
+    margin: 0;
+    padding: 0 30px;
+    list-style: square;
+
+    &--visible {
+      display: block;
+    }
+
+    &__item {
+      margin: 10px 0;
+
+      a {
+        color: $qtip-blue;
+        margin-left: 5px;
+
+      }
+
+    }
+
+  }
+
+
+  &__input {
+    display: none;
+
+    &:checked {
+      ~ .children-nav__list {
+        display: block;
+      }
+
+      ~ .children-nav__title {
+        &::before {
+          content: '▼';
+        }
+      }
+    }
+  }
+}
+
+h1 {
+  font-size: $font-xlarge;
+}
+
+h2 {
+  font-size: $font-large;
+}
+
+h3 {
+  font-size: $font-medium;
+}
+
+h4 {
+  font-size: $font-medium;
+  color: #777;
+}
+
+h5 {
+  font-size: $font-normal;
+}
+
+.logo {
+  font-weight: 600;
+  color: inherit;
+  text-decoration: none;
+}
+
+.menu {
+  margin-top: 5px;
+
+  &__list {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: flex;
+    color: $qtip-blue;
+
+    $path-margin: 5px;
+
+   &__item {
+     margin-right: $path-margin;
+     &::after {
+       font-weight: normal;
+       content: '/';
+       margin-left: $path-margin;
+     }
+
+     &--bold {
+       font-weight: 600;
+     }
+
+     &:last-child {
+       &::after {
+         content: '';
+       }
+     }
+
+     a {
+       color: inherit;
+
+     }
+   }
+
+  }
+}

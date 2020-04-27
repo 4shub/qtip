@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{{title}} | shub.club</title>
+    <link rel="stylesheet" href="/root/root.css">
+    <!--[if IE]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+    <body>
+        <header>
+            <a href="https://shub.club" class="logo">shub.club</a>
+            <nav class="menu">
+                <ul class="menu__list">
+                    <li class="menu__list__item menu__list__item--bold"><a href="/">qtip</a></li>
+                    {{#each nav}}
+                        <li class="menu__list__item"><a href="/{{this.path}}">{{this.label}}</a></li>
+                    {{/each}}
+                </ul>
+            </nav>
+        </header>
+        {{#if children.length}}
+        <nav class="children-nav">
+            {{#if isDirectory}}
+                <div class="children-nav__title">This folder has children:</div>
+            {{else}}
+                <input id="show-children" type="checkbox" class="children-nav__input" />
+                <label for="show-children" class="children-nav__title children-nav__title--navigator">
+                    Show file children
+                </label>
+            {{/if}}
+            <ul class="children-nav__list {{#if isDirectory}}children-nav__list--visible{{/if}}">
+                {{#each children}}
+                    <li class="children-nav__list__item">
+                        <a href="/{{this.path}}">/{{this.path}}</a>
+                    </li>
+                {{/each}}
+            </ul>
+        </nav>
+        {{/if}}
+        <main>
+            {{{content}}}
+        </main>
+    </body>
+</html>
