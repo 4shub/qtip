@@ -21,7 +21,7 @@ def get_action():
     return sys.argv[1]
 
 def get_if_qtip_is_dev():
-    env = os.environ['QTIP_ENV']
+    env = os.environ.get('QTIP_ENV')
 
     if (env == 'development'):
         return True
