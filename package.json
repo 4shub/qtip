@@ -1,0 +1,44 @@
+{
+  "name": "qtip",
+  "version": "1.0.0",
+  "description": "A simple file hosting ui ",
+  "main": "index.js",
+  "scripts": {
+    "start": "node dist/index.js",
+    "start:dev": "nodemon",
+    "build": "rimraf ./dist && tsc && npm run sass",
+    "test": "yarn test",
+    "sass": "node-sass -o public src",
+    "deploy": "platform-deploy qtip production",
+    "sass:watch": "npm run sass && npm run sass -- --watch --recursive"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/4shub/qtip.git"
+  },
+  "author": "Shubham Naik",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/4shub/qtip/issues"
+  },
+  "homepage": "https://github.com/4shub/qtip#readme",
+  "devDependencies": {
+    "@types/express": "^4.17.6",
+    "@types/mongodb": "^3.5.14",
+    "@types/node": "^13.13.4",
+    "@types/showdown": "^1.9.3",
+    "node-sass": "^4.14.0",
+    "nodemon": "^2.0.3",
+    "prettier": "^2.0.5",
+    "rimraf": "^3.0.2",
+    "ts-node": "^8.9.1",
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "handlebars": "^4.7.6",
+    "mongodb": "^3.5.6",
+    "showdown": "^1.9.1"
+  }
+}
