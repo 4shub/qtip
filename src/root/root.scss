@@ -47,7 +47,7 @@ header {
 }
 
 main {
-  :first-child {
+  > :first-child {
     margin-top: 0;
   }
 
@@ -178,3 +178,17 @@ h5 {
 
   }
 }
+
+li > p {
+  margin: 0;
+}
+
+ul {
+  padding: 0 25px;
+  
+
+  li {
+    margin-top: 5px;
+  }
+}
+

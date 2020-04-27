@@ -23,7 +23,7 @@ header {
 
 main {
   padding: 0 50px; }
-  main :first-child {
+  main > :first-child {
     margin-top: 0; }
 
 .children-nav {
@@ -97,3 +97,11 @@ h5 {
         content: ''; }
       .menu__list__item a {
         color: inherit; }
+
+li > p {
+  margin: 0; }
+
+ul {
+  padding: 0 25px; }
+  ul li {
+    margin-top: 5px; }
