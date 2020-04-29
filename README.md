@@ -19,7 +19,7 @@ qtip serve /recepies/fried-chicken fried-chicken-recipe.md
 
 ### Demo
 There is a demo of this service here:
-[https://qtip.shub.club/qtip-demo]()
+[https://qtip.shub.club/qtip-demo](https://qtip.shub.club/qtip-demo)
 
 ### How it works
 #### The Gist
