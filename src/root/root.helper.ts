@@ -3,10 +3,10 @@ import { ChildrenNavItem, FilePayloadNav } from './root.types';
 import { FileData, PathType } from '../file/file.types';
 
 export const makePath = (slug: string[]): FilePayloadNav[] =>
-    slug.map((label, index, arr) => {
+    slug.slice(-1).map((label, index, arr) => {
         return {
             label,
-            path: arr.slice(0, 1 + index).join('/'),
+            path: arr.join('/'),
         };
     });
 
@@ -18,8 +18,8 @@ export const makeChildrenNav = (path: PathType): ChildrenNavItem => ({
 export const getUserIp = (req: Request): string =>
     req.header('x-forwarded-for') || req.connection.remoteAddress || '';
 
-export const getPathFromRequest = ({ baseUrl }: Request): PathType =>
-    baseUrl.substr(1).split('/');
+export const getPathFromRequest = ({ path }: Request): PathType =>
+    path.split('/');
 
 export const sortChildrenAscending = (
     { path: a }: ChildrenNavItem,

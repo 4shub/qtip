@@ -9,7 +9,7 @@ app.use(bodyParser.json());
 
 app.use(express.static('public'));
 
-app.use('*', rootRouter);
+app.use(rootRouter);
 
 app.listen(4225);
 

@@ -1,5 +1,12 @@
 import { Request, Response } from 'express';
-import { AddIpRestrictionBody, FileData, PostFileBody } from './file.types';
+import {
+    AddIpRestrictionBody,
+    FileData,
+    ImageData,
+    ImageDetail,
+    ImageMap,
+    PostFileBody,
+} from './file.types';
 import {
     deleteFileByPath,
     getFileByPath,
@@ -7,31 +14,128 @@ import {
     upsertFile,
 } from './file.repository';
 import { getPathFromRequest } from '../root/root.helper';
+import { createConvertImagePathToLocalFileName } from './file.helpers';
+import { AWS_IMAGE_PATH } from '../constants';
 
-export const postFile = async (req: Request, res: Response) => {
+type PrepareImagePayload = {
+    imageDetails?: ImageDetail[];
+    existingFile: FileData;
+    content: string;
+};
+
+type PrepareImageResponse = {
+    imagesToAskToUpload: string[];
+    imagesToRetain: ImageData[];
+    updatedContent: string;
+};
+
+const prepareImages = (
+    req: Request,
+    { imageDetails, existingFile, content }: PrepareImagePayload
+): PrepareImageResponse => {
+    const imagesToAskToUpload: string[] = [];
+    const imagesToRetainMap: Record<string, ImageData> = {};
+    let updatedContent = content;
+
+    if (imageDetails && imageDetails.length) {
+        const convertToLocalImagePath = createConvertImagePathToLocalFileName(req.path);
+
+        if (imageDetails && imageDetails.length) {
+            for (let image of imageDetails) {
+                const localName = convertToLocalImagePath(image.originalPath);
+
+                const localNameDB = localName.split('.')[0];
+                const existingImage = existingFile && (existingFile?.images || {})[localNameDB];
+
+                const isOutdatedImage =
+                    existingImage &&
+                    existingImage.updatedAt &&
+                    existingImage.updatedAt < image.updatedAt;
+
+                updatedContent = updatedContent.replace(
+                    image.originalPath,
+                    `${AWS_IMAGE_PATH}${localName}`
+                );
+
+                if (!existingFile || !existingImage || isOutdatedImage) {
+                    imagesToAskToUpload.push(image.originalPath);
+                } else {
+                    imagesToRetainMap[localNameDB] = existingImage;
+                }
+            }
+        }
+    }
+
+    const imagesToDelete: string[] = Object.values(existingFile?.images || [])
+        .filter(({ localName }) => !imagesToRetainMap[localName.split('.')[0]])
+        .map(({ localName }) => localName);
+
+    return {
+        imagesToAskToUpload,
+        imagesToRetain: Object.values(imagesToRetainMap),
+        updatedContent,
+    };
+};
+
+export const uploadImage = async (req: Request, res: Response) => {
+    console.log(req.file);
+    const path = req.body.path.split('/');
+    const localName = `/${(req.file as any).key}`;
+    const imageDetail: ImageData = {
+        originalName: req.file.originalname,
+        localName: localName,
+        updatedAt: new Date().valueOf(),
+        source: (req.file as any).location
+    }
+    await updateFile(path, { [`images.${localName.split('.')[0]}`]: imageDetail  })
+    res.sendStatus(200);
+}
+
+export const postFile = async (req: Request, res: Response, next: () => void) => {
     try {
         const path = getPathFromRequest(req);
-
-        const { content } = req.body as PostFileBody;
+        const { forcePublic } = req.query;
+        const { content, imageDetails } = req.body as PostFileBody;
 
         if (!content) {
             res.status(400).send({ error: 'Content is empty' });
             return;
         }
 
+        const promises = [];
+
         const existingFile = await getFileByPath(path);
+        const title = content.split('\n', 1)[0].replace(/#/g, '');
+
+        const {
+            imagesToAskToUpload,
+            imagesToRetain,
+            updatedContent,
+        } = prepareImages(req, { existingFile, imageDetails, content });
 
         if (existingFile) {
-            const title = content.split('\n', 1)[0].replace(/#/g, '');
+            const images = imagesToRetain.reduce((obj, image) => {
+                obj[image.localName.split('.')[0]] = image;
 
-            await updateFile(path, { title, content });
+                return obj;
+            }, {} as ImageMap);
+
+            promises.push(
+                updateFile(path, { title, content: updatedContent, images })
+            );
         } else {
-            const title = content.split('\n', 1)[0].replace(/#/g, '');
-
-            await upsertFile({ title, content, path, public: false });
+            promises.push(
+                upsertFile({
+                    title,
+                    content: updatedContent,
+                    path,
+                    public: forcePublic === 'true',
+                    images: {},
+                })
+            );
         }
 
-        res.sendStatus(200);
+        res.status(200).send({ imagesToUpload: imagesToAskToUpload });
     } catch (e) {
         console.error(e);
         res.sendStatus(500);

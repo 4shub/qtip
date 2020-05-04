@@ -3,6 +3,9 @@ import sys
 import os
 import json
 import urllib.request
+import re
+import base64
+import requests
 
 class bcolors:
     HEADER = '\033[95m'
@@ -13,6 +16,11 @@ class bcolors:
     ENDC = '\033[0m'
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
+
+import itertools
+import email.generator
+import mimetypes
+import urllib
 
 # arg1 = action
 # arg2 = path on website
@@ -54,6 +62,20 @@ def get_auth_token_header():
 
 allowed_file_types = ['txt', 'md', 'json', 'js', 'tsx']
 
+def upload_image(file_path):
+    path = get_path_to_host()
+    request_path = get_server_path() + '/___image'
+
+    request_headers = {
+        'X-AUTH-TOKEN': get_auth_token_header(),
+    }
+
+    url = request_path
+    data = { 'path': path }
+
+    files = {'file': open(file_path, 'rb')}
+    r = requests.post(url, data=data, files=files, headers=request_headers)
+
 def validate_file(file_name):
     obj = file_name.split('.')
 
@@ -68,17 +90,25 @@ def validate_file(file_name):
 
 
 def upload_and_serve_file():
-    fileToUploadPath = get_file_to_upload()
+    file_to_upload_path = get_file_to_upload()
 
     path = get_path_to_host()
 
-    validate_file(fileToUploadPath)
+    validate_file(file_to_upload_path)
 
-    with open(fileToUploadPath, 'r') as content_file:
+    with open(file_to_upload_path, 'r') as content_file:
         content = content_file.read()
 
+    image_details = []
+    for imagePath in re.findall('(?:!\[.*?\]\(([^:]*?)\))', content):
+        head, tail = os.path.split(imagePath)
+        image_details.append({
+            'originalPath': imagePath,
+            'updatedAt': 0 #os.path.getmtime(imagePath)
+        })
 
-    payload = {"content": content}
+
+    payload = {"content": content, "imageDetails": image_details}
 
     request_params = json.dumps(payload).encode('utf8')
     request_headers = {'content-type': 'application/json', 'X-AUTH-TOKEN': get_auth_token_header()}
@@ -87,9 +117,19 @@ def upload_and_serve_file():
     request = urllib.request.Request(request_path, data=request_params,
                                  headers=request_headers)
 
-    send_request(request)
+    response = send_request(request)
 
-    print(f'This page is now served. It should be available on when public :\n{request_path}')
+    data = json.load(response)
+
+    images_to_upload = data.get('imagesToUpload')
+
+    if not images_to_upload or len(images_to_upload) == 0:
+        print(f'This page is now served. It should be available on when public :\n{request_path}')
+        sys.exit()
+
+    # upload images
+    for imagePath in images_to_upload:
+        upload_image(imagePath)
 
 def delete_file():
     path = get_path_to_host()
