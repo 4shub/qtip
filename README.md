@@ -12,9 +12,9 @@ Some examples of pages that could exist on a text hosting platform:
  
 QTip provides you the ability to quickly host any text file (with markdown support!) with one line of code.
 
-The line below will serve `fried-chicken-recipe.md` on `yourdomain.com/recepies/fried-chicken`
+The line below will serve `fried-chicken-recipe.md` on `yourdomain.com/recipes/fried-chicken`
 ```
-qtip serve /recepies/fried-chicken fried-chicken-recipe.md
+qtip serve /recipes/fried-chicken fried-chicken-recipe.md
 ```
 
 ### Features
