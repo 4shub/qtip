@@ -14,6 +14,7 @@ meme
 
 export const fileStub: FileData = {
     title: 'Things I use',
+    images: {},
     content: contentStub,
     path: ['test-data', 'open'],
     public: true,
