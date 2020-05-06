@@ -19,10 +19,10 @@ import {
 } from '../file/file.repository';
 import { FileData } from '../file/file.types';
 import { authenticateUserPromise } from '../middleware';
+import { QTIP_FILE_SYSTEM_NAME } from '../constants';
 
 const ROOT_HTML_FILE = path.join(__dirname, 'root.html');
 const showdown = new Showdown.Converter();
-
 
 const viewFile = async (req: Request, res: Response) => {
     const path = getPathFromRequest(req);
@@ -30,7 +30,7 @@ const viewFile = async (req: Request, res: Response) => {
     const fileData = await getFileByPath(path);
 
     if (!fileData) {
-        res.status(404).send({ error: 'File not found' })
+        res.status(404).send({ error: 'File not found' });
         return;
     }
 
@@ -47,15 +47,15 @@ const listFiles = async (req: Request, res: Response) => {
             let str = '';
 
             if (isPublic) {
-                str = '[public] '
+                str = '[public] ';
             } else {
-                str = '[private]'
+                str = '[private]';
             }
 
             str += ` /${path.join('/')}`;
 
             if (restrictions?.ip) {
-                str += ` (restricted ip(s): ${restrictions.ip.join(',')})`
+                str += ` (restricted ip(s): ${restrictions.ip.join(',')})`;
             }
 
             return str;
@@ -117,6 +117,7 @@ export const getAnyFile = async (req: Request, res: Response) => {
 
         const payload: FilePayload = {
             ...file,
+            fileSystemName: QTIP_FILE_SYSTEM_NAME,
             isDirectory: !actualFile,
             content: file?.content && showdown.makeHtml(file.content),
             nav: makePath(path),

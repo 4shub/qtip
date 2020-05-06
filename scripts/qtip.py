@@ -174,7 +174,6 @@ def make_public():
         sys.exit()
 
     request_path = get_server_path() + path + '?method=make-public'
-
     request_headers = {'X-AUTH-TOKEN': get_auth_token_header()}
     request = urllib.request.Request(request_path, headers=request_headers)
     request.get_method = lambda: 'PUT'

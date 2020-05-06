@@ -2,6 +2,7 @@ import { FileData, PathType } from '../file/file.types';
 
 export interface FilePayload extends FileData {
     nav: FilePayloadNav[];
+    fileSystemName: string;
     children: ChildrenNavItem[];
     isDirectory?: boolean;
 }
