@@ -6,6 +6,7 @@ $qtip-blue: #0064ff;
 
 $title-size: 24px;
 $subtitle-size: 16px;
+$button-hover-color: #111;
 
 $font-xlarge: 24px;
 $font-large: 18px;
@@ -13,6 +14,15 @@ $font-medium: 16px;
 $font-normal: 14px;
 $font-small: 12px;
 $page-margin: 50px;
+
+
+* {
+  box-sizing: border-box;
+}
+
+@mixin for-mobile-view {
+  @media (max-width: 599px) { @content; }
+}
 
 @mixin centerPage {
   padding: 0 $page-margin;
@@ -31,7 +41,7 @@ html, body {
   margin: 0;
   color: #333;
   opacity: 1;
-  line-height: 1.15;
+  line-height: 1.5;
   font-size: $font-normal;
   font-family: $default-font-family;
 }
@@ -57,21 +67,41 @@ main {
 
 .children-nav {
   @include centerPage;
+  position: relative;
   margin-bottom: 25px;
+  width: 100%;
   font-size: $font-normal;
+
+  $navigator-button-height: 17px;
+  $navigator-button-width: 140px;
+
+  $navigator-button-mobile-height: 55px;
+  $navigator-button-mobile-width: 300px;
+
   &__title {
     cursor: pointer;
     font-weight: $heavy-font-weight;
 
+
     &--navigator {
+      @include for-mobile-view {
+        height: $navigator-button-mobile-height;
+        display: flex;
+        align-items: center;
+        border-radius: 3px;
+        padding: 10px;
+        width: $navigator-button-mobile-width;
+        border: 1px solid;
+      }
+
       &::before {
         width: 12px;
+        margin-right: 5px;
         display: inline-block;
         content: '▶';
       }
     }
   }
-
 
   &__list {
     display: none;
@@ -98,7 +128,17 @@ main {
 
 
   &__input {
-    display: none;
+    margin: 0;
+    cursor: pointer;
+    -webkit-appearance: none;
+    position: absolute;
+    width: $navigator-button-width;
+    height: $navigator-button-height;
+
+    @include for-mobile-view {
+      width: $navigator-button-mobile-width;
+      height: $navigator-button-mobile-height;
+    }
 
     &:checked {
       ~ .children-nav__list {
@@ -142,8 +182,6 @@ h5 {
 }
 
 .menu {
-  margin-top: 5px;
-
   &__list {
     padding: 0;
     margin: 0;
