@@ -1,5 +1,5 @@
 ## QTip 
-QTip is a self-hosted _text hosting platform_ that is managed via commandline. 
+QTip is a self-hosted _text hosting platform_ that is managed via command-line. 
 A text hosting platform is a service that serves simple text-based content similarly to a blog. 
 The difference between a blog and a text hosting platform is text hosting services are usually meant for infrequently inserted evergreen content.
 
@@ -12,10 +12,15 @@ Some examples of pages that could exist on a text hosting platform:
  
 QTip provides you the ability to quickly host any text file (with markdown support!) with one line of code.
 
-The line below will serve `fried-chicken-recipe.md` on `yourdomain.com/recepies/fried-chicken`
+The line below will serve `fried-chicken-recipe.md` on `yourdomain.com/recipes/fried-chicken`
 ```
-qtip serve /recepies/fried-chicken fried-chicken-recipe.md
+qtip serve /recipes/fried-chicken fried-chicken-recipe.md
 ```
+
+### Features
+* Markdown file support 
+* Automatically uploads and stores local images embedded in markdown to your preferred CDN
+* 100% self-hosted 🚀 
 
 ### Demo
 There is a demo of this service here:
@@ -57,6 +62,10 @@ Once you have the software installed above, complete the following steps:
     ```bash
     export MONGODB_URI=your-mongodb-connection-tring
     export QTIP_AUTH_TOKEN=the-auth-token-used-to-validate-your-service
+    export AWS_ACCESS_KEY_ID=the-aws-access-key
+    export AWS_SECRET_ACCESS_KEY=the-aws-secret-key
+
+
     ```
 1. Install required dependencies
     ```
