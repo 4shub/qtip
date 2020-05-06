@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node dist/index.js",
     "start:dev": "nodemon",
-    "build": "rimraf ./dist && tsc && npm run sass && cp ./src/root/root.html ./dist/root/root.html",
+    "build": "rimraf ./dist && rimraf ./public && tsc && mkdir ./public && npm run sass && cp ./src/root/root.html ./dist/root/root.html",
     "test": "yarn test",
     "sass": "node-sass -o public src",
     "deploy": "platform-deploy qtip production",
