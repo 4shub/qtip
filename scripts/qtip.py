@@ -114,6 +114,9 @@ def upload_and_serve_file():
     request_headers = {'content-type': 'application/json', 'X-AUTH-TOKEN': get_auth_token_header()}
     request_path = get_server_path() + path
 
+    if "-p" in sys.argv:
+        request_path = request_path + '?forcePublic=true'
+
     request = urllib.request.Request(request_path, data=request_params,
                                  headers=request_headers)
 
