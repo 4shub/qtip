@@ -78,7 +78,6 @@ const prepareImages = (
 };
 
 export const uploadImage = async (req: Request, res: Response) => {
-    console.log(req.file);
     const path = req.body.path.split('/');
     const localName = `/${(req.file as any).key}`;
     const imageDetail: ImageData = {
