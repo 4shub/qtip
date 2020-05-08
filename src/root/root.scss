@@ -93,18 +93,10 @@ main {
         width: $navigator-button-mobile-width;
         border: 1px solid;
       }
-
-      &::before {
-        width: 12px;
-        margin-right: 5px;
-        display: inline-block;
-        content: '▶';
-      }
     }
   }
 
   &__list {
-    display: none;
     margin: 0;
     padding: 0 30px;
     list-style: square;
@@ -138,18 +130,6 @@ main {
     @include for-mobile-view {
       width: $navigator-button-mobile-width;
       height: $navigator-button-mobile-height;
-    }
-
-    &:checked {
-      ~ .children-nav__list {
-        display: block;
-      }
-
-      ~ .children-nav__title {
-        &::before {
-          content: '▼';
-        }
-      }
     }
   }
 }

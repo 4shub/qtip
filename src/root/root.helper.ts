@@ -6,7 +6,7 @@ export const makePath = (slug: string[]): FilePayloadNav[] =>
     slug.slice(1).map((label, index, arr) => {
         return {
             label,
-            path: arr.join('/'),
+            path: arr.slice(0, index + 1).join('/'),
         };
     });
 

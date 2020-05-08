@@ -31,14 +31,18 @@
             </nav>
         </header>
         {{#if children.length}}
-        <nav class="children-nav">
+            {{#if isDirectory}}
+                <div class="children-nav">
+            {{else}}
+                <details class="children-nav">
+            {{/if}}
+
             {{#if isDirectory}}
                 <div class="children-nav__title">This folder has children:</div>
             {{else}}
-                <input tabindex="0" id="show-children" type="checkbox" class="children-nav__input" />
-                <label for="show-children" class="children-nav__title children-nav__title--navigator">
+                <summary class="children-nav__title children-nav__title--navigator">
                     Show file children
-                </label>
+                </summary>
             {{/if}}
             <ul class="children-nav__list {{#if isDirectory}}children-nav__list--visible{{/if}}">
                 {{#each children}}
@@ -47,7 +51,12 @@
                     </li>
                 {{/each}}
             </ul>
-        </nav>
+
+            {{#unless isDirectory}}
+                </details>
+            {{else}}
+                </div>
+            {{/unless}}
         {{/if}}
         <main>
             {{{content}}}
