@@ -118,3 +118,5 @@ dist
 .idea
 
 public/*
+
+qtip-config.json

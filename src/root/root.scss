@@ -14,7 +14,7 @@ $font-medium: 16px;
 $font-normal: 14px;
 $font-small: 12px;
 $page-margin: 50px;
-
+$mobile-page-margin: 25px;
 
 * {
   box-sizing: border-box;
@@ -26,6 +26,10 @@ $page-margin: 50px;
 
 @mixin centerPage {
   padding: 0 $page-margin;
+
+  @include for-mobile-view {
+    padding: 0 $mobile-page-margin;
+  }
 }
 
 a {
@@ -55,6 +59,10 @@ h1,h2,h3,h4,h5,h6 {
 
 header {
   padding: $page-margin $page-margin 25px;
+
+  @include for-mobile-view {
+    padding: $mobile-page-margin $mobile-page-margin 25px;
+  }
 }
 
 main {

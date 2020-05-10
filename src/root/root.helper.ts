@@ -1,4 +1,6 @@
 import { Request } from 'express';
+import fs from 'fs';
+import path from 'path';
 import { ChildrenNavItem, FilePayloadNav } from './root.types';
 import { FileData, PathType } from '../file/file.types';
 
@@ -46,7 +48,7 @@ export const validateFileVisibility = (req: Request) => async (
         return file;
     }
 
-    console.log(file?.restrictions?.ip, getUserIp(req))
+    console.log(file?.restrictions?.ip, getUserIp(req));
 
     if (file?.restrictions?.ip) {
         if (file.restrictions.ip.includes(getUserIp(req))) {
@@ -56,3 +58,4 @@ export const validateFileVisibility = (req: Request) => async (
 
     return;
 };
+

@@ -20,6 +20,7 @@ import {
 import { FileData } from '../file/file.types';
 import { authenticateUserPromise } from '../middleware';
 import { QTIP_FILE_SYSTEM_NAME } from '../constants';
+import { config } from '../config/config';
 
 const ROOT_HTML_FILE = path.join(__dirname, 'root.html');
 const showdown = new Showdown.Converter();
@@ -116,6 +117,7 @@ export const getAnyFile = async (req: Request, res: Response) => {
         const template = Handlebars.compile(rootHTML);
 
         const payload: FilePayload = {
+            config,
             ...file,
             fileSystemName: QTIP_FILE_SYSTEM_NAME,
             isDirectory: !actualFile,

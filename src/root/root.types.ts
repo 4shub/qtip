@@ -1,6 +1,8 @@
 import { FileData, PathType } from '../file/file.types';
+import { SiteConfig } from '../config/config.types';
 
 export interface FilePayload extends FileData {
+    config: SiteConfig;
     nav: FilePayloadNav[];
     fileSystemName: string;
     children: ChildrenNavItem[];
