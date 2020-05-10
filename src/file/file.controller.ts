@@ -14,7 +14,7 @@ import {
     upsertFile,
 } from './file.repository';
 import { getPathFromRequest } from '../root/root.helper';
-import { createConvertImagePathToLocalFileName } from './file.helpers';
+import {createConvertImagePathToLocalFileName, parseTitle} from './file.helpers';
 import { AWS_IMAGE_PATH } from '../constants';
 
 type PrepareImagePayload = {
@@ -104,7 +104,7 @@ export const postFile = async (req: Request, res: Response, next: () => void) =>
         const promises = [];
 
         const existingFile = await getFileByPath(path);
-        const title = content.split('\n', 1)[0].replace(/#/g, '');
+        const title = parseTitle(content);
 
         const {
             imagesToAskToUpload,

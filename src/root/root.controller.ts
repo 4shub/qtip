@@ -25,6 +25,8 @@ import { config } from '../config/config';
 const ROOT_HTML_FILE = path.join(__dirname, 'root.html');
 const showdown = new Showdown.Converter();
 
+showdown.setFlavor('github');
+
 const viewFile = async (req: Request, res: Response) => {
     const path = getPathFromRequest(req);
 

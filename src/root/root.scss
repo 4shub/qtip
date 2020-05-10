@@ -1,4 +1,4 @@
-$default-font-family: -apple-system, BlinkMacSystemFont, Helvetica, Tahoma, sans-serif;
+$default-font-family: Helvetica, Tahoma, sans-serif;
 $font-color: #333;
 $heavy-font-weight: 600;
 $medium-font-weight: 500;
@@ -8,13 +8,15 @@ $title-size: 24px;
 $subtitle-size: 16px;
 $button-hover-color: #111;
 
-$font-xlarge: 24px;
-$font-large: 18px;
-$font-medium: 16px;
-$font-normal: 14px;
-$font-small: 12px;
+$font-xlarge: 28px;
+$font-large: 22px;
+$font-medium: 18px;
+$font-normal: 16px;
+$font-small: 14px;
 $page-margin: 50px;
 $mobile-page-margin: 25px;
+
+$code-background-color: #f9f9f9;
 
 * {
   box-sizing: border-box;
@@ -41,6 +43,7 @@ a {
   }
 }
 
+
 html, body {
   margin: 0;
   color: #333;
@@ -50,11 +53,12 @@ html, body {
   font-family: $default-font-family;
 }
 
+
 h1,h2,h3,h4,h5,h6 {
   line-height: 1;
-  margin: 15px 0 0 0;
+  margin: 30px 0 0 0;
   padding: 0;
-  font-weight: $heavy-font-weight;
+  font-weight: 600;
 }
 
 header {
@@ -65,7 +69,27 @@ header {
   }
 }
 
+pre {
+  background: $code-background-color;
+  white-space: break-spaces;
+  word-break: break-all;
+  border-radius: 3px;
+  padding: 20px;
+  font-size: $font-small;
+}
+
+code {
+  background: $code-background-color;
+  padding: 5px;
+  border-radius: 3px;
+  margin: 0 5px;
+}
+
 main {
+  line-height: 2;
+
+  max-width: 700px;
+
   > :first-child {
     margin-top: 0;
   }
@@ -144,6 +168,7 @@ main {
 
 h1 {
   font-size: $font-xlarge;
+  font-weight: 600;
 }
 
 h2 {
