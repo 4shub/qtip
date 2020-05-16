@@ -125,3 +125,4 @@ qtip-config.json
 
 src/cli/public
 src/cli/public/*
+__pycache__
