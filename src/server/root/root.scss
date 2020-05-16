@@ -3,6 +3,8 @@ $font-color: #333;
 $heavy-font-weight: 600;
 $medium-font-weight: 500;
 $qtip-blue: #0064ff;
+$page-width: 800px;
+$max-text-width: 65ch;
 
 $title-size: 24px;
 $subtitle-size: 16px;
@@ -16,6 +18,8 @@ $font-small: 14px;
 $page-margin: 50px;
 $mobile-page-margin: 25px;
 
+$red-background-color: #f54242;
+$blue-background-color: #a8e4ff;
 $code-background-color: #f9f9f9;
 
 * {
@@ -28,6 +32,8 @@ $code-background-color: #f9f9f9;
 
 @mixin centerPage {
   padding: 0 $page-margin;
+  max-width: $page-width;
+  margin: 0 auto;
 
   @include for-mobile-view {
     padding: 0 $mobile-page-margin;
@@ -61,12 +67,37 @@ h1,h2,h3,h4,h5,h6 {
   font-weight: 600;
 }
 
-header {
+.header {
+  max-width: $page-width;
+  margin: 0 auto;
   padding: $page-margin $page-margin 25px;
 
   @include for-mobile-view {
     padding: $mobile-page-margin $mobile-page-margin 25px;
   }
+
+  &__primary-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &__actions {
+
+    }
+  }
+
+}
+
+.publish-button {
+  background-color: #fff;
+  border: 1px solid #333;
+  color: #333;
+  display: flex;
+  margin: 0;
+  padding: 7px 15px 3px;
+  cursor: pointer;
+  font: inherit;
+  border-radius: 3px;
 }
 
 pre {
@@ -88,7 +119,7 @@ code {
 main {
   line-height: 2;
 
-  max-width: 700px;
+  max-width: $max-text-width;
 
   > :first-child {
     margin-top: 0;
@@ -98,9 +129,9 @@ main {
 }
 
 .children-nav {
-  @include centerPage;
+
   position: relative;
-  margin-bottom: 25px;
+  margin: 25px 0 0;
   width: 100%;
   font-size: $font-normal;
 
@@ -194,6 +225,24 @@ h5 {
   text-decoration: none;
 }
 
+.publish-alert-banner {
+  display: none;
+  padding: 10px;
+  margin: 0 0 20px;
+  border-radius: 3px;
+
+  &__fail {
+    background-color: $red-background-color;
+    color: #fff;
+    display: block;
+  }
+
+  &__success {
+    background-color: $blue-background-color;
+    display: block;
+  }
+}
+
 .menu {
   &__list {
     padding: 0;
@@ -242,5 +291,9 @@ ul {
   li {
     margin-top: 5px;
   }
+}
+
+p {
+  max-width: $max-text-width;
 }
 

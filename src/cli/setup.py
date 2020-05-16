@@ -5,7 +5,7 @@ setup(
     version='0.1',
     py_modules=['qtip'],
     install_requires=[
-        'Click',
+        'flask',
         'requests'
     ],
     entry_points='''

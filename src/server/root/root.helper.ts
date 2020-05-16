@@ -48,8 +48,6 @@ export const validateFileVisibility = (req: Request) => async (
         return file;
     }
 
-    console.log(file?.restrictions?.ip, getUserIp(req));
-
     if (file?.restrictions?.ip) {
         if (file.restrictions.ip.includes(getUserIp(req))) {
             return file;

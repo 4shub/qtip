@@ -6,10 +6,10 @@
   "scripts": {
     "start": "node dist/index.js",
     "start:dev": "nodemon",
-    "build:python:client": "parcel build src/cli/preview/preview.ts && mv dist/preview.js src/cli/public/preview.js ",
+    "build:web": "parcel build src/cli/actions/preview/preview.ts && cp dist/preview.js src/cli/public/preview.js && cp dist/preview.js public/root/preview.js && cp public/root/root.css src/cli/public/root.css",
     "build": "rimraf ./dist && rimraf ./public && tsc && mkdir ./public && npm run sass && cp src/server/root/root.html ./dist/root/root.html",
     "test": "yarn test",
-    "sass": "node-sass -o public src",
+    "sass": "node-sass -o public/root src/server/root/root.scss",
     "deploy": "platform-deploy qtip production",
     "sass:watch": "npm run sass && npm run sass -- --watch --recursive"
   },

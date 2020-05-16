@@ -2,7 +2,6 @@ import fs from 'fs';
 import path from 'path';
 
 import Handlebars from 'handlebars';
-import Showdown from 'showdown';
 import { Request, Response } from 'express';
 import { FilePayload, GetFileMethod } from './root.types';
 import {
@@ -53,7 +52,7 @@ const listFiles = async (req: Request, res: Response) => {
                 str = '[private]';
             }
 
-            str += ` /${path.join('/')}`;
+            str += ` ${path.join('/')}`;
 
             if (restrictions?.ip) {
                 str += ` (restricted ip(s): ${restrictions.ip.join(',')})`;
@@ -74,6 +73,7 @@ const methodList: Record<string, (req: Request, res: Response) => void> = {
 export const getAnyFile = async (req: Request, res: Response) => {
     try {
         const method = req.query.method as GetFileMethod;
+        const isPreview = req.query?.preview === '1';
 
         if (methodList[method]) {
             // all methods are restricted
@@ -105,7 +105,7 @@ export const getAnyFile = async (req: Request, res: Response) => {
             .map(({ path }) => makeChildrenNav(path))
             .sort(sortChildrenAscending);
 
-        if (!children.length && !actualFile) {
+        if (!children.length && !actualFile && !isPreview) {
             // pass 404
             return res.sendStatus(404);
         }
@@ -119,6 +119,7 @@ export const getAnyFile = async (req: Request, res: Response) => {
         const payload: FilePayload = {
             config,
             ...file,
+            isPreview,
             fileSystemName: QTIP_FILE_SYSTEM_NAME,
             isDirectory: !actualFile,
             content: file?.content && markdown.makeHtml(file.content),

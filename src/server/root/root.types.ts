@@ -4,6 +4,7 @@ import { SiteConfig } from '../config/config.types';
 export interface FilePayload extends FileData {
     config: SiteConfig;
     nav: FilePayloadNav[];
+    isPreview?: boolean;
     fileSystemName: string;
     children: ChildrenNavItem[];
     isDirectory?: boolean;

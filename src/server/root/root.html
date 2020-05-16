@@ -11,6 +11,9 @@
     {{#if config.favicon}}
         <link rel="icon" href="{{config.favicon}}" />
     {{/if}}
+    {{#if isPreview}}
+    <script src="/root/preview.js" type="application/javascript"></script>
+    {{/if}}
     <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0">
     <link rel="stylesheet" href="/root/root.css">
     <!--[if IE]>
@@ -18,20 +21,32 @@
     <![endif]-->
 </head>
     <body>
-        <header>
-            <a href="https://shub.club" class="logo">shub.club</a>
-            <nav class="menu">
-                <ul class="menu__list">
-                    <li class="menu__list__item menu__list__item--bold"><a href="/">{{fileSystemName}}</a></li>
-                    {{#each nav}}
+        <header class="header">
+            {{#if isPreview}}
+                <div role="banner" class="publish-alert-banner" id="publish-alert-banner"></div>
+            {{/if}}
+            <div class="header__primary-nav">
+                <div class="header__primary-nav__info">
+                    <a href="https://shub.club" class="logo">shub.club</a>
+                    <nav class="menu">
+                        <ul class="menu__list">
+                            <li class="menu__list__item menu__list__item--bold"><a href="/">{{fileSystemName}}</a></li>
+                            {{#each nav}}
                             <li class="menu__list__item">
                                 {{#if this.path}}
-                                    <a href="/{{this.path}}">{{this.label}}</a>
+                                <a href="/{{this.path}}">{{this.label}}</a>
                                 {{/if}}
                             </li>
-                    {{/each}}
-                </ul>
-            </nav>
+                            {{/each}}
+                        </ul>
+                    </nav>
+                </div>
+                <div class="header__primary-nav__actions">
+                    {{#if isPreview}}
+                        <button class="publish-button" id="publish">Publish</button>
+                    {{/if}}
+                </div>
+            </div>
             {{#if children.length}}
             {{#if isDirectory}}
             <div class="children-nav">
@@ -61,7 +76,7 @@
             {{/unless}}
             {{/if}}
         </header>
-        <main>
+        <main id="main-content">
             {{{content}}}
         </main>
     </body>

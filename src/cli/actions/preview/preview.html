@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>QTip Preview</title>
+    <style>
+        body {
+            opacity: 0;
+        }
+    </style>
+    <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0">
+    <link rel="stylesheet" href="/root.css">
+    <script src="/preview.js" type="application/javascript"></script>
+</head>
+<body>
+<header class="header">
+    <div role="banner" class="publish-alert-banner" id="publish-alert-banner"></div>
+    <div class="header__primary-nav">
+        <div class="header__primary-nav__info">
+        <a href="https://github.com/4shub/qtip" class="logo">Qtip</a>
+            <nav class="menu">
+                <ul class="menu__list">
+                    <li class="menu__list__item menu__list__item--bold"><a href="/">preview</a></li>
+                    {% for item in nav %}
+                    {% if item %}
+                    <li class="menu__list__item">
+                        <a href="/">{{item}}</a>
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+                </ul>
+            </nav>
+        </div>
+        <div class="header__primary-nav__actions">
+            <button class="publish-button" id="publish">Publish</button>
+        </div>
+    </div>
+
+</header>
+<main id="main-content">
+</main>
+</body>
+</html>
