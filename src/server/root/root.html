@@ -32,35 +32,35 @@
                     {{/each}}
                 </ul>
             </nav>
-        </header>
-        {{#if children.length}}
+            {{#if children.length}}
             {{#if isDirectory}}
-                <div class="children-nav">
-            {{else}}
+            <div class="children-nav">
+                {{else}}
                 <details class="children-nav">
-            {{/if}}
+                    {{/if}}
 
-            {{#if isDirectory}}
-                <div class="children-nav__title">This folder has children:</div>
-            {{else}}
-                <summary class="children-nav__title children-nav__title--navigator">
-                    Show file children
-                </summary>
-            {{/if}}
-            <ul class="children-nav__list {{#if isDirectory}}children-nav__list--visible{{/if}}">
-                {{#each children}}
-                    <li class="children-nav__list__item">
-                        <a href="{{this.path}}">{{this.path}}</a>
-                    </li>
-                {{/each}}
-            </ul>
+                    {{#if isDirectory}}
+                    <div class="children-nav__title">This folder has children:</div>
+                    {{else}}
+                    <summary class="children-nav__title children-nav__title--navigator">
+                        Show file children
+                    </summary>
+                    {{/if}}
+                    <ul class="children-nav__list {{#if isDirectory}}children-nav__list--visible{{/if}}">
+                        {{#each children}}
+                        <li class="children-nav__list__item">
+                            <a href="{{this.path}}">{{this.path}}</a>
+                        </li>
+                        {{/each}}
+                    </ul>
 
-            {{#unless isDirectory}}
+                    {{#unless isDirectory}}
                 </details>
-            {{else}}
-                </div>
+                {{else}}
+            </div>
             {{/unless}}
-        {{/if}}
+            {{/if}}
+        </header>
         <main>
             {{{content}}}
         </main>
