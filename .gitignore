@@ -120,3 +120,8 @@ dist
 public/*
 
 qtip-config.json
+
+.venv
+
+src/cli/public
+src/cli/public/*

@@ -4,8 +4,9 @@ import os
 import json
 import urllib.request
 import re
-import base64
 import requests
+import urllib
+import preview.preview
 
 class bcolors:
     HEADER = '\033[95m'
@@ -17,10 +18,6 @@ class bcolors:
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
 
-import itertools
-import email.generator
-import mimetypes
-import urllib
 
 # arg1 = action
 # arg2 = path on website
@@ -272,7 +269,8 @@ def map_actions_to_operations():
         'restrictip': restrict_ip,
         'ls': list_directory,
         'cat': view_file,
-        'get': get_file
+        'get': get_file,
+        'preview': preview.preview.init_preview
     }
 
     action = get_action()

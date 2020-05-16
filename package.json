@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node dist/index.js",
     "start:dev": "nodemon",
+    "build:python:client": "parcel build src/cli/preview/preview.ts && mv dist/preview.js src/cli/public/preview.js ",
     "build": "rimraf ./dist && rimraf ./public && tsc && mkdir ./public && npm run sass && cp src/server/root/root.html ./dist/root/root.html",
     "test": "yarn test",
     "sass": "node-sass -o public src",
@@ -29,6 +30,7 @@
     "@types/multer-s3": "^2.7.7",
     "@types/node": "^13.13.4",
     "@types/showdown": "^1.9.3",
+    "babel-preset-env": "^1.7.0",
     "node-sass": "^4.14.0",
     "nodemon": "^2.0.3",
     "prettier": "^2.0.5",

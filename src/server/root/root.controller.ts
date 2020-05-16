@@ -21,11 +21,9 @@ import { FileData } from '../file/file.types';
 import { authenticateUserPromise } from '../middleware';
 import { QTIP_FILE_SYSTEM_NAME } from '../constants';
 import { config } from '../config/config';
+import markdown from "../../shared/markdown-interpreter";
 
 const ROOT_HTML_FILE = path.join(__dirname, 'root.html');
-const showdown = new Showdown.Converter();
-
-showdown.setFlavor('github');
 
 const viewFile = async (req: Request, res: Response) => {
     const path = getPathFromRequest(req);
@@ -123,7 +121,7 @@ export const getAnyFile = async (req: Request, res: Response) => {
             ...file,
             fileSystemName: QTIP_FILE_SYSTEM_NAME,
             isDirectory: !actualFile,
-            content: file?.content && showdown.makeHtml(file.content),
+            content: file?.content && markdown.makeHtml(file.content),
             nav: makePath(path),
             children,
         };
