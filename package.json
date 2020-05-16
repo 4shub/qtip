@@ -33,6 +33,7 @@
     "babel-preset-env": "^1.7.0",
     "node-sass": "^4.14.0",
     "nodemon": "^2.0.3",
+    "parcel": "^1.12.4",
     "prettier": "^2.0.5",
     "rimraf": "^3.0.2",
     "ts-node": "^8.9.1",
