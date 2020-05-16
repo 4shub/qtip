@@ -96,8 +96,6 @@ export const postFile = async (req: Request, res: Response, next: () => void) =>
         const { forcePublic } = req.query;
         const { content, imageDetails } = req.body as PostFileBody;
 
-        console.log('path', path);
-
         if (!content) {
             res.status(400).send({ error: 'Content is empty' });
             return;

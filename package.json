@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node dist/index.js",
     "start:dev": "nodemon",
-    "build:web": "parcel build src/cli/actions/preview/preview.ts && cp dist/preview.js src/cli/public/preview.js && cp dist/preview.js public/root/preview.js && cp public/root/root.css src/cli/public/root.css",
+    "build:web": "mkdir -p src/cli/public && parcel build src/cli/actions/preview/preview.ts &&  cp dist/preview.js src/cli/public/preview.js && cp dist/preview.js public/root/preview.js && cp public/root/root.css src/cli/public/root.css",
     "build": "rimraf ./dist && rimraf ./public && tsc && mkdir ./public && npm run sass && cp src/server/root/root.html ./dist/server/root/root.html && npm run build:web",
     "test": "yarn test",
     "sass": "node-sass -o public/root src/server/root/root.scss",
