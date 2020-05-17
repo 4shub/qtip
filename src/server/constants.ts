@@ -1,13 +1,22 @@
 export const ENVIRONMENT = process.env.NODE_ENV;
 
+const [HEROKU_DEFAULT_DATABASE_URI, HEROKU_DATABASE_NAME] = (() => {
+    if (process.env.IS_HEROKU) {
+        const matches = (process.env.MONGOD_URI as string).match(/(.*)\/(.*)/);
+
+        return [matches && matches[1], matches && matches[2]];
+    }
+
+    return [null, null];
+})();
+
 export const DATABASE_NAME =
-    ENVIRONMENT === 'testing' ? 'qtip-testing' : 'qtip';
+    HEROKU_DATABASE_NAME || ENVIRONMENT === 'testing' ? 'qtip-testing' : 'qtip';
 
 export const DATABASE_URI =
-           // heroku
-           process.env.MONGO_URI ||
-           process.env.MONGODB_URI ||
-           'mongodb://localhost:27017';
+    process.env.MONGODB_URI ||
+    HEROKU_DEFAULT_DATABASE_URI ||
+    'mongodb://localhost:27017';
 
 export const QTIP_AUTH_TOKEN = process.env.QTIP_AUTH_TOKEN;
 

@@ -11,6 +11,9 @@
   "logo": "",
   "success_url": "/",
   "env": {
+    "IS_HEROKU": {
+      "generator": "secret"
+    },
     "QTIP_AUTH_TOKEN": {
       "description": "A secret key used for validating qtip requests. Essentially your password for your CLI to access this server",
       "generator": ""
