@@ -1,4 +1,6 @@
 ## QTip
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/4shub/qtip)
+
 QTip is a self-hosted _text hosting platform_ that is managed via command-line. 
 A text hosting platform is a service that serves simple text-based content similarly to a blog. 
 The difference between a blog and a text hosting platform is text hosting services are usually meant for infrequently inserted evergreen content.
