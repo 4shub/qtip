@@ -15,7 +15,7 @@ import {
 } from './file.repository';
 import { getPathFromRequest } from '../root/root.helper';
 import {createConvertImagePathToLocalFileName, parseTitle} from './file.helpers';
-import { AWS_IMAGE_PATH } from '../constants';
+import {ALLOW_IMAGE_UPLOADS, AWS_IMAGE_PATH} from '../constants';
 
 type PrepareImagePayload = {
     imageDetails?: ImageDetail[];
@@ -36,6 +36,14 @@ const prepareImages = (
     const imagesToAskToUpload: string[] = [];
     const imagesToRetainMap: Record<string, ImageData> = {};
     let updatedContent = content;
+
+    if (!ALLOW_IMAGE_UPLOADS) {
+        return {
+            imagesToAskToUpload: [],
+            imagesToRetain: [],
+            updatedContent,
+        }
+    }
 
     if (imageDetails && imageDetails.length) {
         const convertToLocalImagePath = createConvertImagePathToLocalFileName(req.path);

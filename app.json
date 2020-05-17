@@ -19,10 +19,12 @@
       "generator": ""
     },
     "AWS_S3_ENDPOINT": {
-      "description": "The aws S3 endpoint for image uploads",
+      "required": false,
+      "description": "The aws S3 endpoint for image uploads. If no endpoint is provided, you will not be able to upload images!",
       "value": ""
     },
     "QTIP_AWS_S3_BUCKET": {
+      "required": false,
       "description": "The aws S3 bucket for image uploads",
       "value": ""
     },
