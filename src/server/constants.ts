@@ -36,3 +36,5 @@ export const QTIP_AWS_S3_TOP_LEVEL_FOLDER: string = process.env
 
 export const QTIP_FILE_SYSTEM_NAME: string =
     (process.env.QTIP_FILE_SYSTEM_NAME as string) || 'qtip';
+
+export const PORT = process.env.PORT || 4225;
