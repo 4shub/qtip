@@ -42,7 +42,7 @@
   "image": "heroku/nodejs",
   "addons": [
     {
-      "plan": "mongolab:shared-cluster-1",
+      "plan": "mongolab:sandbox",
       "as": "MONGO"
     }
   ]
