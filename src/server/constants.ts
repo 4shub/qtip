@@ -2,7 +2,7 @@ export const ENVIRONMENT = process.env.NODE_ENV;
 
 const [HEROKU_DEFAULT_DATABASE_URI, HEROKU_DATABASE_NAME] = (() => {
     if (process.env.IS_HEROKU) {
-        const matches = (process.env.MONGOD_URI as string).match(/(.*)\/(.*)/);
+        const matches = (process.env.MONGO_URI as string).match(/(.*)\/(.*)/);
 
         return [matches && matches[1], matches && matches[2]];
     }
