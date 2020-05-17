@@ -33,6 +33,7 @@ const buildConfig = (): SiteConfig => {
     return {
         headTags: config.headTags,
         favicon: config.favicon,
+        logo: config.logo,
     };
 };
 

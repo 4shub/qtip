@@ -119,8 +119,6 @@ dist
 
 public/*
 
-qtip-config.json
-
 .venv
 
 src/qtip_cli/public

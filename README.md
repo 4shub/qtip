@@ -51,12 +51,29 @@ Let's say a user saves a file under the path `/recipies` and then another file u
 ### Installation
 #### Server
 ##### Via Heroku
-To deploy this service to heroku, click the button below. It should take 5-10 minutes but it is self explainatory.
-
+To deploy this service to heroku, follow these instructions:
+1. Click the button below and follow the instructions on Heroku's website
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/4shub/qtip)
+
+
+1. Clone the repository locally
+```
+heroku git:clone -a name-of-your-qtip-heroku-project
+cd name-of-your-qtip-heroku-project
+git remote add origin https://github.com/4shub/qtip
+git pull origin master
+```
 
 ##### Self Hosted
 The instructions for self-hosted docs are located [here](/docs/deploy/self-hosted-deployment.md)
+
+#### Modifying qtip's config
+Visit your qtip instance and do the following:
+```
+cp qtip-config.default.json qtip-config.json
+```
+
+Edit the `qtip-config.json`
 
 #### Client
 To run the client make sure you have the following installed:

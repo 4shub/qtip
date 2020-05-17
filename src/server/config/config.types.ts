@@ -6,4 +6,8 @@ export type ImportedSiteConfig = {
 export type SiteConfig = {
     headTags: string[];
     favicon: string;
+    logo: {
+        text: string;
+        link: string;
+    };
 };
