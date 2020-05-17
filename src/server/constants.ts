@@ -4,9 +4,7 @@ const [HEROKU_DEFAULT_DATABASE_URI, HEROKU_DATABASE_NAME] = (() => {
     if (process.env.IS_HEROKU) {
         const matches = (process.env.MONGO_URI as string).match(/(.*)\/(.*)/);
 
-        // for some reason we don't need credentials to connect to heroku mongodb
-        const dbUrl = `mongodb://${matches && matches[1].split('@')[1]}`;
-        return [dbUrl, matches && matches[2]];
+        return [matches && matches[1], matches && matches[2]];
     }
 
     return [null, null];
