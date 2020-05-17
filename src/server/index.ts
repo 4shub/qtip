@@ -1,8 +1,6 @@
 import DB from './util/mongodb';
 import { QTIP_AUTH_TOKEN } from './constants';
 
-console.log('Init server');
-
 if (!QTIP_AUTH_TOKEN) {
     throw 'QTIP_AUTH_TOKEN not provided';
 }

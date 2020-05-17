@@ -11,7 +11,10 @@ const [HEROKU_DEFAULT_DATABASE_URI, HEROKU_DATABASE_NAME] = (() => {
 })();
 
 export const DATABASE_NAME =
-    HEROKU_DATABASE_NAME || ENVIRONMENT === 'testing' ? 'qtip-testing' : 'qtip';
+    HEROKU_DATABASE_NAME ||
+    (ENVIRONMENT === 'testing' ? 'qtip-testing' : 'qtip');
+
+console.log('a', DATABASE_NAME);
 
 export const DATABASE_URI =
     process.env.MONGODB_URI ||

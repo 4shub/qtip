@@ -1,7 +1,7 @@
 import { MongoClient, Db } from 'mongodb';
 import { DATABASE_NAME, DATABASE_URI } from '../constants';
 
-const DB = (function() {
+const DB = (function () {
     const databaseName: string = DATABASE_NAME;
     const url: string = DATABASE_URI;
     let database: any = null;
@@ -20,10 +20,12 @@ const DB = (function() {
                     }
 
                     try {
-                        client = await MongoClient.connect(`${url}/${databaseName}`, {
-                            useNewUrlParser: true,
-                            useUnifiedTopology: true,
-                        });
+                        console.log('Attempting to connect to %s', url);
+
+                        client = await MongoClient.connect(
+                            `${url}/${databaseName}`,
+                            { useUnifiedTopology: true }
+                        );
 
                         if (process.env.NODE_ENV !== 'testing') {
                             console.log(
@@ -51,8 +53,7 @@ const DB = (function() {
         getClient: () => client,
         close: () => {
             client.close();
-            console.log(
-                'Closing DB connection');
+            console.log('Closing DB connection');
             client = null;
             database = null;
         },
