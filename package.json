@@ -4,14 +4,18 @@
   "description": "A simple file hosting ui ",
   "main": "index.js",
   "scripts": {
+    "cli": "python3 src",
+    "build": "./scripts/build-server.sh",
+    "build:web": "./scripts/build-web.sh",
+    "build:cli": "./scripts/build-cli.sh",
+    "deploy": "platform-deploy qtip production",
+    "deploy:cli": "./scripts/deploy-cli.sh",
+    "sass": "node-sass -o public/root src/server/root/root.scss",
+    "sass:watch": "npm run sass && npm run sass -- --watch --recursive",
+    "setup:cli": "pip3 install -r py-dependencies.txt",
     "start": "node dist/server/index.js",
     "start:dev": "nodemon",
-    "build:web": "mkdir -p src/cli/public && parcel build src/cli/actions/preview/preview.ts &&  cp dist/preview.js src/cli/public/preview.js && cp dist/preview.js public/root/preview.js && cp public/root/root.css src/cli/public/root.css",
-    "build": "rimraf ./dist && rimraf ./public && tsc && mkdir ./public && npm run sass && cp src/server/root/root.html ./dist/server/root/root.html && npm run build:web",
-    "test": "yarn test",
-    "sass": "node-sass -o public/root src/server/root/root.scss",
-    "deploy": "platform-deploy qtip production",
-    "sass:watch": "npm run sass && npm run sass -- --watch --recursive"
+    "test": "yarn test"
   },
   "repository": {
     "type": "git",

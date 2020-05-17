@@ -4,9 +4,9 @@ import json
 import sys
 import requests
 import urllib.request
-from helpers.env import get_if_qtip_is_dev, get_server_path, get_auth_token_header
-from helpers.args import get_file_to_upload, get_path_to_host
-from helpers import send_request
+from qtip_cli.helpers.env import get_if_qtip_is_dev, get_server_path, get_auth_token_header
+from qtip_cli.helpers.args import get_file_to_upload, get_path_to_host
+from qtip_cli.helpers import send_request
 
 allowed_file_types = ['txt', 'md', 'json', 'js', 'tsx']
 

@@ -4,10 +4,10 @@ import logging
 import os
 import sys
 import time
-from actions.upload_and_serve_file import upload_and_serve_file
+from qtip_cli.actions.upload_and_serve_file import upload_and_serve_file
 
-from helpers.args import get_file_to_upload, get_path_to_host
-from helpers.env import get_server_path
+from qtip_cli.helpers.args import get_file_to_upload, get_path_to_host
+from qtip_cli.helpers.env import get_server_path
 
 public_folder = os.path.join(os.path.dirname(os.path.realpath(__file__)), '../../public')
 cli_folder = os.path.join(os.path.dirname(os.path.realpath(__file__)))

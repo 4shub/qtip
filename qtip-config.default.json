@@ -1,5 +1,9 @@
 {
   "headTags": [
   ],
+  "logo": {
+    "text": "Your Site",
+    "link": "/"
+  },
   "favicon": ""
 }

@@ -14,9 +14,9 @@ Some examples of pages that could exist on a text hosting platform:
  
 QTip provides you the ability to quickly host any text file (with markdown support!) with one line of code.
 
-The line below will serve `fried-chicken-recipe.md` on `yourdomain.com/recipes/fried-chicken`
+The line below will serve `fried-chicken-recipe.md` on `yourdomain.com/recipe/fried-chicken`
 ```
-qtip serve /recipes/fried-chicken fried-chicken-recipe.md
+qtip serve /recipe/fried-chicken fried-chicken-recipe.md
 ```
 
 ### Features
@@ -26,7 +26,7 @@ qtip serve /recipes/fried-chicken fried-chicken-recipe.md
 
 ### Demo
 There is a demo of this service here:
-[https://qtip.shub.club/qtip-demo](https://qtip.shub.club/qtip-demo)
+[https://qtip.herokuapp.com/](https://qtip.herokuapp.com)
 
 ### How it works
 #### The Gist
@@ -50,43 +50,21 @@ Let's say a user saves a file under the path `/recipies` and then another file u
 
 ### Installation
 #### Server
-Before installing this software, please make sure you have the following software:
-* Node.js version 12.6.1 or above
-* MongoDB version 4.0.0 or above
+##### Via Heroku
+To deploy this service to heroku, click the button below. It should take 5-10 minutes but it is self explainatory.
 
-Once you have the software installed above, complete the following steps:
-1. Clone this repo
-    ```
-    git clone https://github.com/4shub/qtip.git 
-    ```
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/4shub/qtip)
 
-1. Set your environment variables
-    ```bash
-    export MONGODB_URI=your-mongodb-connection-tring
-    export QTIP_AUTH_TOKEN=the-auth-token-used-to-validate-your-service
-    export AWS_ACCESS_KEY_ID=the-aws-access-key
-    export AWS_SECRET_ACCESS_KEY=the-aws-secret-key
-
-
-    ```
-1. Install required dependencies
-    ```
-    npm i
-    ```
-    
-1. Build and run the server
-    ```
-    npm build
-    npm start
-    ```
+##### Self Hosted
+The instructions for self-hosted docs are located [here](/docs/deploy/self-hosted-deployment.md)
 
 #### Client
 To run the client make sure you have the following installed:
 * Python 3.7 or higher
 
-1. Clone this repo
+1. Install 
     ```
-    git clone https://github.com/4shub/qtip.git 
+    pip install qtip-client-cli 
     ```
 
 1. Set your environment variables
@@ -95,10 +73,9 @@ To run the client make sure you have the following installed:
     export QTIP_SERVER=http://your-qtip-server-location.com
     ```
 
-1. Then add the following line to you `bash_profile` or similar file
-   
+1. Go!
    ```
-   alias qtip="python ./path/to/qtip/repo/scripts/qtip.py"
+   qtip help
    ```
 
 ### Usage
@@ -130,6 +107,18 @@ To delete a file, do the following:
 ```
 qtip delete /path/to/serve
 ```
+
+#### Previews
+To preview your document while editing it:
+```
+qtip preview /path/to/serve filename
+```
+
+You can preview it with your live site by doing the following as well
+``` 
+qtip preview /path/to/serve filename --live
+```
+
 
 #### Other Commands
 * `qtip ls /path` - lists all files within a particular serve route

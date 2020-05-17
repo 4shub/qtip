@@ -1,0 +1,3 @@
+include README.md
+include qtip_cli/public/*
+include qtip_cli/actions/preview/preview.html

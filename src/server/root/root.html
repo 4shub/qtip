@@ -27,7 +27,11 @@
             {{/if}}
             <div class="header__primary-nav">
                 <div class="header__primary-nav__info">
-                    <a href="https://shub.club" class="logo">shub.club</a>
+                    {{#if config.logo}}
+                        <a href="{{config.logo.link}}" class="logo">
+                            {{config.logo.text}}
+                        </a>
+                    {{/if}}
                     <nav class="menu">
                         <ul class="menu__list">
                             <li class="menu__list__item menu__list__item--bold"><a href="/">{{fileSystemName}}</a></li>

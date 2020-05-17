@@ -5,12 +5,12 @@ import json
 import urllib.request
 import urllib
 
-from helpers import send_request
-from helpers.args import get_action, get_file_to_upload, get_path_to_host
-from helpers.env import get_if_qtip_is_dev, get_server_path, get_auth_token_header
+from qtip_cli.helpers import send_request
+from qtip_cli.helpers.args import get_action, get_file_to_upload, get_path_to_host
+from qtip_cli.helpers.env import get_if_qtip_is_dev, get_server_path, get_auth_token_header
 
-from actions.preview.preview import init_preview
-from actions.upload_and_serve_file import upload_and_serve_file
+from qtip_cli.actions.preview.preview import init_preview
+from qtip_cli.actions.upload_and_serve_file import upload_and_serve_file
 
 class bcolors:
     HEADER = '\033[95m'
@@ -145,6 +145,10 @@ def get_file():
 
 
 def map_actions_to_operations():
+    if len(sys.argv) <= 1:
+        print('No command specified, try `qtip help` for help!')
+        sys.exit()
+
     action_map = {
         'serve': upload_and_serve_file,
         'delete': delete_file,
@@ -163,9 +167,25 @@ def map_actions_to_operations():
 
     func()
 
-if __name__ == "__main__":
-    if len(sys.argv) <= 1:
-        print('No command specified, try `qtip help` for help!')
-        sys.exit()
+def get_exception():
+    """Helper function to work with py2.4-py3 for getting the current
+    exception in a try/except block
+    """
+    return sys.exc_info()[1]
 
-    map_actions_to_operations()
+def main():
+    try:
+        map_actions_to_operations()
+    except KeyboardInterrupt:
+        print('goodbye!')
+    except (ValueError, SystemExit):
+        e = get_exception()
+
+        # Ignore a successful exit, or argparse exit
+        if getattr(e, 'code', 1) not in (0, 2):
+            raise SystemExit('ERROR: %s' % e)
+
+
+
+if __name__ == "__main__":
+    main()
