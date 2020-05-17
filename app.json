@@ -15,8 +15,8 @@
   },
   "env": {
     "QTIP_AUTH_TOKEN": {
-      "description": "A secret key used for validating qtip requests",
-      "generator": "secret"
+      "description": "A secret key used for validating qtip requests. Essentially your password for your CLI to access this server",
+      "generator": ""
     },
     "AWS_S3_ENDPOINT": {
       "description": "The aws S3 endpoint for image uploads",
@@ -27,11 +27,13 @@
       "value": ""
     },
     "QTIP_AWS_S3_TOP_LEVEL_FOLDER": {
+      "required": false,
       "description": "Optional: The folder in S3 where images will be uploaded to",
       "value": ""
     },
     "QTIP_FILE_SYSTEM_NAME": {
-      "description": "Optional: The name of your qtip file system",
+      "required": false,
+      "description": "The name of your qtip file system",
       "value": ""
     }
   },
