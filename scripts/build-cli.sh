@@ -1,7 +1,7 @@
 #!/bin/bash
-#npm i
+npm i
 
-#npm run build:web
+npm run build:web
 
 rm -rf dist/qtip*
 rm -rf build/cli
