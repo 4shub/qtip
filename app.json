@@ -10,9 +10,6 @@
   "repository": "https://github.com/4shub/qtip",
   "logo": "",
   "success_url": "/",
-  "scripts": {
-    "postdeploy": "npm i && npm run build"
-  },
   "env": {
     "QTIP_AUTH_TOKEN": {
       "description": "A secret key used for validating qtip requests. Essentially your password for your CLI to access this server",
