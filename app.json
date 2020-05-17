@@ -1,0 +1,45 @@
+{
+  "name": "QTip",
+  "description": "QTip is a text hosting service",
+  "keywords": [
+    "productivity",
+    "HTML5",
+    "blog"
+  ],
+  "website": "https://github.com/4shub/qtip",
+  "repository": "https://github.com/4shub/qtip",
+  "logo": "",
+  "success_url": "/",
+  "scripts": {
+    "postdeploy": "bundle exec rake bootstrap"
+  },
+  "env": {
+    "QTIP_AUTH_TOKEN": {
+      "description": "A secret key used for validating qtip requests",
+      "generator": "secret"
+    },
+    "AWS_S3_ENDPOINT": {
+      "description": "The aws S3 endpoint for image uploads",
+      "value": ""
+    },
+    "QTIP_AWS_S3_BUCKET": {
+      "description": "The aws S3 bucket for image uploads",
+      "value": ""
+    },
+    "QTIP_AWS_S3_TOP_LEVEL_FOLDER": {
+      "description": "Optional: The folder in S3 where images will be uploaded to",
+      "value": ""
+    },
+    "QTIP_FILE_SYSTEM_NAME": {
+      "description": "Optional: The name of your qtip file system",
+      "value": ""
+    }
+  },
+  "image": "heroku/nodejs",
+  "addons": [
+    {
+      "plan": "mongolab:shared-single-small",
+      "as": "MONGO"
+    }
+  ],
+}
