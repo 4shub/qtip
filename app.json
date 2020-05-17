@@ -11,7 +11,7 @@
   "logo": "",
   "success_url": "/",
   "scripts": {
-    "postdeploy": "bundle exec rake bootstrap"
+    "postdeploy": "npm i && npm run build"
   },
   "env": {
     "QTIP_AUTH_TOKEN": {
