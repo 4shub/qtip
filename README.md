@@ -26,7 +26,7 @@ qtip serve /recipe/fried-chicken fried-chicken-recipe.md
 
 ### Demo
 There is a demo of this service here:
-[https://qtip.herokuapp.com/](https://qtip.herokuapp.com)
+[https://www.useqtip.com/](https://www.useqtip.com/)
 
 ### How it works
 #### The Gist
@@ -57,12 +57,12 @@ To deploy this service to heroku, follow these instructions:
 
 
 1. Clone the repository locally
-```
+    ```
 heroku git:clone -a name-of-your-qtip-heroku-project
 cd name-of-your-qtip-heroku-project
 git remote add origin https://github.com/4shub/qtip
 git pull origin master
-```
+    ```
 
 ##### Self Hosted
 The instructions for self-hosted docs are located [here](/docs/deploy/self-hosted-deployment.md)
@@ -111,14 +111,15 @@ To use qtip to serve a file, follow these instructions:
    
    **Note: files cannot be made private once they go public**
 
-    Sometimes you don't want a file to be public to everyone. You can instead restrict a file to particular ips by doing the following:
-    
+    Sometimes you don't want a file to be public to everyone. You can instead restrict a file to particular ips by doing the following: 
     ```
     qtip restrictip /path/to/serve 192.0.0.1,145.554.432.33
-   ```
-   Please list ips you want to restrict delineated by a comma
-   **Note: You can only restrict private files**
-   
+    ```
+    
+    Please list ips you want to restrict delineated by a comma
+    **Note: You can only restrict private files**
+
+
 #### Deleting a file
 To delete a file, do the following:
 ```
