@@ -40,7 +40,7 @@ def validate_file(file_name):
     raise NameError(f'File is an invalid type. Allowed file extensions {allowed_file_types_str}')
 
 
-def upload_and_serve_file(viaPublish):
+def upload_and_serve_file(viaPublish = False):
     file_to_upload_path = get_file_to_upload()
 
     path = get_path_to_host()

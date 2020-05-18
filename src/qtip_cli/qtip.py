@@ -178,14 +178,6 @@ def main():
         map_actions_to_operations()
     except KeyboardInterrupt:
         print('goodbye!')
-    except (ValueError, SystemExit):
-        e = get_exception()
-
-        # Ignore a successful exit, or argparse exit
-        if getattr(e, 'code', 1) not in (0, 2):
-            raise SystemExit('ERROR: %s' % e)
-
-
 
 if __name__ == "__main__":
     main()
