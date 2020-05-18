@@ -6,7 +6,7 @@ setup(
     author='Shubham Naik',
     author_email='shub@shub.club',
     url='https://github.com/4shub/qtip',
-    version='0.1.1-rev11',
+    version='0.1.1-rev12',
     install_requires=[
         'flask',
         'requests'

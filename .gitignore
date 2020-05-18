@@ -265,3 +265,9 @@ dmypy.json
 cython_debug/
 
 .DS_Store
+
+# Prevent config values from being pushed
+qtip.config.json
+
+# ignore Pipfile.lock to allow multiple python versions
+Pipfile.lock

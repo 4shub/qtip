@@ -45,6 +45,10 @@ Here are the available actions for qtip:
     serve - uploads and serves a file
         Usage: qtip serve /file/path/on/server /path/to/file
 
+        Parameters:
+
+            -p      make your update public instatly, initially the files are private
+
     delete - removes a file from qtip server
         Usage: qtip remove /file/path/on/server
     """
