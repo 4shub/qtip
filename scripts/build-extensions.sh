@@ -1,5 +1,5 @@
 #!/bin/bash
 if [ -d "./extensions" ]
 then
-  parcel build extensions/* -d public
+  ./node_modules/.bin/parcel build extensions/* -d public
 fi

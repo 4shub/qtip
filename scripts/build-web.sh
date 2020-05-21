@@ -2,7 +2,7 @@
 mkdir -p src/qtip_cli/public
 
 # build client
-parcel build src/qtip_cli/actions/preview/preview.ts
+./node_modules/.bin/parcel build src/qtip_cli/actions/preview/preview.ts
 
 # copy files around
 cp dist/preview.js src/qtip_cli/public/preview.js

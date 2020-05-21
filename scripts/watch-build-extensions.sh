@@ -1,6 +1,6 @@
 #!/bin/bash
 if [ -d "./extensions" ]
 then
-  parcel watch extensions/* -d public
+  ./node_modules/.bin/parcel watch extensions/* -d public
 fi
 
