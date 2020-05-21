@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "cli": "python3 src",
+    "cli:dev": "QTIP_ENV=development QTIP_AUTH_TOKEN=local-qtip-token python3 src",
     "build": "./scripts/build-server.sh",
     "build:web": "./scripts/build-web.sh",
     "build:extensions": "./scripts/build-extensions.sh",
@@ -15,7 +16,7 @@
     "sass:watch": "npm run sass && npm run sass -- --watch --recursive",
     "setup:cli": "pip3 install -r py-dependencies.txt",
     "start": "node dist/server/index.js",
-    "start:dev": "nodemon",
+    "start:dev": "LOCAL_DEV=1 nodemon",
     "web:watch": "./scripts/watch-build-extensions.sh",
     "test": "yarn test"
   },
