@@ -16,6 +16,7 @@
     "setup:cli": "pip3 install -r py-dependencies.txt",
     "start": "node dist/server/index.js",
     "start:dev": "nodemon",
+    "web:watch": "./scripts/watch-build-extensions.sh",
     "test": "yarn test"
   },
   "repository": {
