@@ -16,3 +16,6 @@ cp src/server/root/root.html ./dist/server/root/root.html
 
 # build-web
 npm run build:web
+
+# build any extensions specified
+npm run build:extensions

@@ -7,6 +7,7 @@
     "cli": "python3 src",
     "build": "./scripts/build-server.sh",
     "build:web": "./scripts/build-web.sh",
+    "build:extensions": "./scripts/build-extensions.sh",
     "build:cli": "./scripts/build-cli.sh",
     "deploy": "platform-deploy qtip production",
     "deploy:cli": "./scripts/deploy-cli.sh",
