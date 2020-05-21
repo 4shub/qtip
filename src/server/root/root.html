@@ -15,14 +15,15 @@
     <script src="/root/preview.js" type="application/javascript"></script>
     {{/if}}
 
+    {{#if config.head}}
+        {{config.head}}
+    {{/if}}
     <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0">
     <link rel="stylesheet" href="/root/root.css">
     <!--[if IE]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    {{#if config.head}}
-        {{config.head}}
-    {{/if}}
+
 </head>
     <body>
         <header class="header">
