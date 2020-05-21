@@ -1,5 +1,6 @@
 export type ImportedSiteConfig = {
-    headTags: string[];
+    head: string;
+    endOfBody: string;
     favicon: string;
     logo: {
         text: string;
@@ -8,7 +9,8 @@ export type ImportedSiteConfig = {
 };
 
 export type SiteConfig = {
-    headTags: string[];
+    head: string;
+    endOfBody: string;
     favicon: string;
     logo: {
         text: string;
