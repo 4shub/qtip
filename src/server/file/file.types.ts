@@ -1,5 +1,6 @@
 export type FileRestrictions = {
     ip?: string[],
+    accessCode: string;
 }
 
 type ImageLocalName = string;
@@ -47,4 +48,8 @@ export type PostFileBody = {
 
 export type AddIpRestrictionBody = {
     ipList: string[];
+}
+
+export type AddAccessCodeRestrictionBody = {
+    code: string;
 }

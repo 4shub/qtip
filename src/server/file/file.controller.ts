@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import {
+    AddAccessCodeRestrictionBody,
     AddIpRestrictionBody,
     FileData,
     ImageData,
@@ -14,8 +15,11 @@ import {
     upsertFile,
 } from './file.repository';
 import { getPathFromRequest } from '../root/root.helper';
-import {createConvertImagePathToLocalFileName, parseTitle} from './file.helpers';
-import {ALLOW_IMAGE_UPLOADS, AWS_IMAGE_PATH} from '../constants';
+import {
+    createConvertImagePathToLocalFileName,
+    parseTitle,
+} from './file.helpers';
+import { ALLOW_IMAGE_UPLOADS, AWS_IMAGE_PATH } from '../constants';
 
 type PrepareImagePayload = {
     imageDetails?: ImageDetail[];
@@ -42,18 +46,21 @@ const prepareImages = (
             imagesToAskToUpload: [],
             imagesToRetain: [],
             updatedContent,
-        }
+        };
     }
 
     if (imageDetails && imageDetails.length) {
-        const convertToLocalImagePath = createConvertImagePathToLocalFileName(req.path);
+        const convertToLocalImagePath = createConvertImagePathToLocalFileName(
+            req.path
+        );
 
         if (imageDetails && imageDetails.length) {
             for (let image of imageDetails) {
                 const localName = convertToLocalImagePath(image.originalPath);
 
                 const localNameDB = localName.split('.')[0];
-                const existingImage = existingFile && (existingFile?.images || {})[localNameDB];
+                const existingImage =
+                    existingFile && (existingFile?.images || {})[localNameDB];
 
                 const isOutdatedImage =
                     existingImage &&
@@ -92,13 +99,19 @@ export const uploadImage = async (req: Request, res: Response) => {
         originalName: req.file.originalname,
         localName: localName,
         updatedAt: new Date().valueOf(),
-        source: (req.file as any).location
-    }
-    await updateFile(path, { [`images.${localName.split('.')[0]}`]: imageDetail  })
+        source: (req.file as any).location,
+    };
+    await updateFile(path, {
+        [`images.${localName.split('.')[0]}`]: imageDetail,
+    });
     res.sendStatus(200);
-}
+};
 
-export const postFile = async (req: Request, res: Response, next: () => void) => {
+export const postFile = async (
+    req: Request,
+    res: Response,
+    next: () => void
+) => {
     try {
         const path = getPathFromRequest(req);
         const { forcePublic } = req.query;
@@ -162,7 +175,9 @@ export const putFile = async (req: Request, res: Response) => {
 
         const appMap: Record<string, (req: Request, res: Response) => void> = {
             'make-public': makeFilePublic,
-            'restrict-ip': addIpRestriction(existingFile),
+            'make-private': makeFilePrivate,
+            'restrict-ip': addIpRestriction(),
+            'restrict-access-code': addAccessCodeRestriction(),
         };
 
         if (appMap[method]) {
@@ -184,16 +199,16 @@ export const makeFilePublic = async (req: Request, res: Response) => {
     res.sendStatus(200);
 };
 
-export const addIpRestriction = (existingFile: FileData) => async (
-    req: Request,
-    res: Response
-) => {
-    const { ipList } = req.body as AddIpRestrictionBody;
+export const makeFilePrivate = async (req: Request, res: Response) => {
+    const path = getPathFromRequest(req);
 
-    if (existingFile.public) {
-        res.status(400).send('Cannot add restriction to a public file!');
-        return;
-    }
+    await updateFile(path, { public: false, restrictions: null });
+
+    res.sendStatus(200);
+};
+
+export const addIpRestriction = () => async (req: Request, res: Response) => {
+    const { ipList } = req.body as AddIpRestrictionBody;
 
     if (!ipList || !Array.isArray(ipList)) {
         res.status(400).send('Missing ip list');
@@ -202,7 +217,25 @@ export const addIpRestriction = (existingFile: FileData) => async (
 
     const path = getPathFromRequest(req);
 
-    await updateFile(path, { ['restrictions.ip']: ipList });
+    await updateFile(path, { private: true, ['restrictions.ip']: ipList });
+
+    res.sendStatus(200);
+};
+
+export const addAccessCodeRestriction = () => async (
+    req: Request,
+    res: Response
+) => {
+    const { code } = req.body as AddAccessCodeRestrictionBody;
+
+    if (!code || typeof code !== 'string') {
+        res.status(400).send('Missing code');
+        return;
+    }
+
+    const path = getPathFromRequest(req);
+
+    await updateFile(path, { private: true, ['restrictions.accessCode']: code });
 
     res.sendStatus(200);
 };

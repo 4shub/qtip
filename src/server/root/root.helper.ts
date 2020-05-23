@@ -52,6 +52,10 @@ export const validateFileVisibility = (req: Request) => async (
         if (file.restrictions.ip.includes(getUserIp(req))) {
             return file;
         }
+
+        if (typeof file.restrictions.accessCode === 'string' && file.restrictions.accessCode === req.query.accessCode) {
+            return file;
+        }
     }
 
     return;
