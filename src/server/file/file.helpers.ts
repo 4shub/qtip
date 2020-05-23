@@ -11,7 +11,13 @@ export const createConvertImagePathToLocalFileName = (baseUrl: string) => (
 export const parseTitle = (content: string): string => {
     const title = (() => {
         try {
-            return content.match(/#([^\n]+)/)
+            const matches = content.match(/#([^\n]+)/);
+
+            if (matches && matches[1]) {
+                return matches[1];
+            }
+
+            throw 'no headings';
         } catch (e) {
             return content.split('\n', 1)[0];
         }
@@ -20,7 +26,7 @@ export const parseTitle = (content: string): string => {
     const unescapeChar = (str: string): string => {
         // temp: need to make a regex that removes escape characters
         return str.replace(/\\</g, '<');
-    }
+    };
 
     return unescapeChar(title.replace(/#/g, ''));
 };
