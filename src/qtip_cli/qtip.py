@@ -75,6 +75,24 @@ def get_ip_list():
     return ip_list_str.split(',')
 
 
+# makes a file public to be viewed
+def make_private():
+    path = get_path_to_host()
+
+    print(f'This will make the file `{path}` hidden to everyone on the internet!\n\n')
+
+    ans = input('Confirm making file private (y/n): ')
+
+    if ans != 'y':
+        print('Operation aborted')
+        sys.exit()
+
+    request_path = get_server_path() + path + '?method=make-private'
+    request_headers = {'X-AUTH-TOKEN': get_auth_token_header()}
+    request = urllib.request.Request(request_path, headers=request_headers)
+    request.get_method = lambda: 'PUT'
+    send_request(request)
+
 def restrict_ip():
     path = get_path_to_host()
     restricted_ip_list = get_ip_list()
@@ -88,6 +106,21 @@ def restrict_ip():
     request = urllib.request.Request(request_path, headers=request_headers, data=request_params)
     request.get_method = lambda: 'PUT'
     send_request(request)
+
+def restrict_access_code():
+    path = get_path_to_host()
+    access_code = sys.argv[3]
+
+    request_path = get_server_path() + path + '?method=restrict-access-code'
+
+    request_headers = {'X-AUTH-TOKEN': get_auth_token_header(), 'content-type': 'application/json'}
+    payload = {"code": access_code}
+    request_params = json.dumps(payload).encode('utf8')
+
+    request = urllib.request.Request(request_path, headers=request_headers, data=request_params)
+    request.get_method = lambda: 'PUT'
+    send_request(request)
+
 
 def list_directory():
     path = get_path_to_host()
@@ -154,7 +187,9 @@ def map_actions_to_operations():
         'delete': delete_file,
         'help': show_help,
         'public': make_public,
+        'private': make_private,
         'restrictip': restrict_ip,
+        'restrictcode': restrict_access_code,
         'ls': list_directory,
         'cat': view_file,
         'get': get_file,
