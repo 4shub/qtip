@@ -9,7 +9,7 @@ import {
     getPathFromRequest,
     makeChildrenNav,
     makePath,
-    validateFileVisibility,
+    validateFileVisibility, parseMetadata,
 } from './root.helper';
 import {
     getFileByPath,
@@ -123,7 +123,7 @@ export const getAnyFile = async (req: Request, res: Response) => {
             fileSystemName: QTIP_FILE_SYSTEM_NAME,
             isDirectory: !actualFile,
             content: file?.content && markdown.makeHtml(file.content),
-            metadata: (markdown.getMetadata(true) as string),
+            metadata: parseMetadata((markdown.getMetadata()),
             nav: makePath(path),
             children,
         };

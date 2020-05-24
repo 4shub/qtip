@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import { ChildrenNavItem, FilePayloadNav } from './root.types';
 import { FileData, PathType } from '../file/file.types';
+import { Metadata } from 'showdown';
 
 export const makePath = (slug: string[]): FilePayloadNav[] =>
     slug.slice(1).map((label, index, arr) => {
@@ -63,4 +64,16 @@ export const validateFileVisibility = (req: Request) => async (
     }
 
     return;
+};
+
+export const parseMetadata = (metadata: Metadata): string => {
+    return Object.entries(metadata)
+        .map(([name, value]) => {
+            if (name === 'title') {
+                return `<title>${name}</title>`;
+            }
+
+            return `<meta name="${name}" content="${value}" >`;
+        })
+        .join('\n');
 };
