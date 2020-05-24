@@ -123,6 +123,7 @@ export const getAnyFile = async (req: Request, res: Response) => {
             fileSystemName: QTIP_FILE_SYSTEM_NAME,
             isDirectory: !actualFile,
             content: file?.content && markdown.makeHtml(file.content),
+            metadata: (markdown.getMetadata(true) as string),
             nav: makePath(path),
             children,
         };
