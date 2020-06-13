@@ -217,7 +217,7 @@ export const addIpRestriction = () => async (req: Request, res: Response) => {
 
     const path = getPathFromRequest(req);
 
-    await updateFile(path, { private: true, ['restrictions.ip']: ipList });
+    await updateFile(path, { public: false, ['restrictions.ip']: ipList });
 
     res.sendStatus(200);
 };
@@ -235,7 +235,7 @@ export const addAccessCodeRestriction = () => async (
 
     const path = getPathFromRequest(req);
 
-    await updateFile(path, { private: true, ['restrictions.accessCode']: code });
+    await updateFile(path, { public: false, ['restrictions.accessCode']: code });
 
     res.sendStatus(200);
 };

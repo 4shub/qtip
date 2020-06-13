@@ -1,6 +1,6 @@
 {
   "name": "qtip",
-  "version": "0.1.0",
+  "version": "0.1.0r-1",
   "description": "A simple file hosting ui ",
   "main": "index.js",
   "scripts": {
