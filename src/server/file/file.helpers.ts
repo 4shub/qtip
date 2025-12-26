@@ -9,12 +9,24 @@ export const createConvertImagePathToLocalFileName = (baseUrl: string) => (
         .pop()}`;
 
 export const parseTitle = (content: string): string => {
-    const title = content.split('\n', 1)[0];
+    const title = (() => {
+        try {
+            const matches = content.match(/#([^\n]+)/);
+
+            if (matches && matches[1]) {
+                return matches[1];
+            }
+
+            throw 'no headings';
+        } catch (e) {
+            return content.split('\n', 1)[0];
+        }
+    })();
 
     const unescapeChar = (str: string): string => {
         // temp: need to make a regex that removes escape characters
         return str.replace(/\\</g, '<');
-    }
+    };
 
     return unescapeChar(title.replace(/#/g, ''));
 };

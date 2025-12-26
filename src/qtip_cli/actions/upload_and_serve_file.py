@@ -13,6 +13,8 @@ allowed_file_types = ['txt', 'md', 'json', 'js', 'tsx']
 
 
 def upload_image(file_path):
+    file_to_upload_path = os.path.join(os.path.dirname(get_file_to_upload()), file_path.replace('./', ''))
+
     path = get_path_to_host()
     request_path = get_server_path() + '/___image'
 
@@ -23,7 +25,7 @@ def upload_image(file_path):
     url = request_path
     data = { 'path': path }
 
-    files = {'file': open(file_path, 'rb')}
+    files = {'file': open(file_to_upload_path, 'rb')}
     r = requests.post(url, data=data, files=files, headers=request_headers)
 
 

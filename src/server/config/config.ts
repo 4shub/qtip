@@ -31,7 +31,8 @@ const buildConfig = (): SiteConfig => {
     const config = getConfigDataFromFile();
 
     return {
-        headTags: config.headTags,
+        head: config.head ? config.head.join('\n'): '',
+        endOfBody: config.endOfBody ? config.endOfBody.join('\n') : '',
         favicon: config.favicon,
         logo: config.logo,
     };

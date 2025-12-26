@@ -9,7 +9,7 @@ import {
     getPathFromRequest,
     makeChildrenNav,
     makePath,
-    validateFileVisibility,
+    validateFileVisibility, parseMetadata,
 } from './root.helper';
 import {
     getFileByPath,
@@ -21,6 +21,7 @@ import { authenticateUserPromise } from '../middleware';
 import { QTIP_FILE_SYSTEM_NAME } from '../constants';
 import { config } from '../config/config';
 import markdown from "../../shared/markdown-interpreter";
+import {Metadata} from "showdown";
 
 const ROOT_HTML_FILE = path.join(__dirname, 'root.html');
 
@@ -123,6 +124,7 @@ export const getAnyFile = async (req: Request, res: Response) => {
             fileSystemName: QTIP_FILE_SYSTEM_NAME,
             isDirectory: !actualFile,
             content: file?.content && markdown.makeHtml(file.content),
+            metadata: parseMetadata(markdown.getMetadata() as Metadata),
             nav: makePath(path),
             children,
         };

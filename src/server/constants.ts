@@ -1,4 +1,5 @@
 export const ENVIRONMENT = process.env.NODE_ENV;
+export const isLocal = process.env.LOCAL_DEV === '1';
 
 const [HEROKU_DEFAULT_DATABASE_URI, HEROKU_DATABASE_NAME] = (() => {
     if (process.env.IS_HEROKU) {
@@ -14,14 +15,16 @@ export const DATABASE_NAME =
     HEROKU_DATABASE_NAME ||
     (ENVIRONMENT === 'testing' ? 'qtip-testing' : 'qtip');
 
-console.log('a', DATABASE_NAME);
-
 export const DATABASE_URI =
     process.env.MONGODB_URI ||
     HEROKU_DEFAULT_DATABASE_URI ||
     'mongodb://localhost:27017';
 
-export const QTIP_AUTH_TOKEN = process.env.QTIP_AUTH_TOKEN;
+const QTIP_DEV_AUTH_TOKEN = 'local-qtip-token';
+
+export const QTIP_AUTH_TOKEN = isLocal
+    ? QTIP_DEV_AUTH_TOKEN
+    : process.env.QTIP_AUTH_TOKEN;
 
 export const AWS_S3_ENDPOINT: string = process.env
     .QTIP_AWS_S3_ENDPOINT as string;
